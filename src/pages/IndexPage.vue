@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <q-page>
-
+  <q-page padding>
+    
   </q-page>
 </template>
 
