@@ -39,3 +39,10 @@ First Step  Install quasar
 Secon Setep create and configure repository
 
 git remote add origin
+
+Third Step Firebase configuration
+
+1 .- create src/boot/firebase.js
+2 .- add in quasar.config.js boot "firebase"
+3 .- yarn add firebase
+4 .- configure firebase.js
