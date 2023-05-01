@@ -2,7 +2,8 @@
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../boot/firebase.js";
 import AddText from "components/AddText.vue";
-
+import { useAuth } from '@vueuse/firebase/useAuth'
+const { isAuthenticated, user } = useAuth(auth)
 
 
 /**
@@ -34,7 +35,7 @@ onAuthStateChanged(auth, (user) => {
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
         <q-space />
-        <q-btn flat color="white" label="Log Out" @click="logout"/>
+        <q-btn v-if="isAuthenticated" flat color="white" label="Log Out" @click="logout"/>
       </q-toolbar>
     </q-header>
 

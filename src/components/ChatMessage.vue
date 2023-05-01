@@ -28,6 +28,22 @@ const unsubscribe = onSnapshot(q, (snapshot) => {
 });
 }
 getMessages()
+
+/**
+ * Delete a single message
+*/
+const deleteMessage = (t, e) => {
+  console.log(t);
+  console.log(e);
+}
+
+/**
+ * Edit a message
+*/
+const editMessage = (t, e) => {
+  console.log(t);
+  console.log(e);
+}
 </script>
 
 <template>
@@ -35,14 +51,20 @@ getMessages()
     <div
       style="width: 100%; max-width: 400px"
     >
-    <div v-for="message in messages"
+    <div  v-for="message in messages"
       :key="message.id">
+       <div v-if="message.id == auth.currentUser.uid" class="row justify-end q-gutter-x-md">
+        <q-icon name="delete" color="red" class="cursor-pointer" @click="deleteMessage(message.email, message.time)" />
+        <q-icon name="edit" color="green" class="cursor-pointer" @click="editMessage(message.email, message.time)" />
+      </div>
       <q-chat-message
         :text="[message.text]"
         :sent="message.id == auth.currentUser.uid"
         :name="message.email"
       >
+      
       </q-chat-message>
+     
       </div>
     </div>
   </div>
