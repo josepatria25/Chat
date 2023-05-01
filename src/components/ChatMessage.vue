@@ -1,4 +1,31 @@
 <script setup>
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { ref } from "vue";
+import { db, auth } from "../boot/firebase"
+
+/**
+ * Observe data in real time 
+*/
+let messages = ref([])
+
+const q = query(collection(db, "chats"));
+const unsubscribe = onSnapshot(q, (snapshot) => {
+  snapshot.docChanges().forEach((change) => {
+    if (change.type === "added") {
+        console.log("New chat: ", change.doc.data());
+        messages.value.push({
+            id: change.doc.id,
+          ...change.doc.data()
+        })
+    }
+    if (change.type === "modified") {
+        console.log("Edit chat: ", change.doc.data());
+    }
+    if (change.type === "removed") {
+        console.log("Removed city: ", change.doc.data());
+    }
+  });
+});
 
 </script>
 
