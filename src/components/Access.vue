@@ -1,6 +1,7 @@
 <script setup>
-import useQuasar from "quasar/src/composables/use-quasar.js";
 import { ref } from "vue";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 /**
  * access control
@@ -11,15 +12,41 @@ const access = ref(true);
  * User Informatio
  */
 const objectForm = ref({
-  email: ref(""),
-  password: ref(""),
-  isPwd: ref(true),
+  email: "",
+  password: "",
+  isPwd: true,
 });
+
+/**
+ * Reset all inputs
+ */
+const onReset = () => {
+  objectForm.value.email = null;
+  objectForm.value.password = null;
+};
 
 /**
  * Send data to firebase
  */
-const sendData = () => {};
+const auth = getAuth();
+const sendData = async () => {
+  // if(!access.value){
+  //   const user = await auth.createUserWithEmailAndPassword(objectForm.value.email, objectForm.value.password)
+  //   console.log(user.user)
+  // }
+  const auth = getAuth();
+createUserWithEmailAndPassword(auth, objectForm.value.email, objectForm.value.password)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+};
 </script>
 
 <template>
@@ -42,7 +69,7 @@ const sendData = () => {};
       >
         <template v-slot:append>
           <q-icon
-            :name="isPwd ? 'visibility_off' : 'visibility'"
+            :name="objectForm.isPwd ? 'visibility_off' : 'visibility'"
             class="cursor-pointer"
             @click="objectForm.isPwd = !objectForm.isPwd"
           />
@@ -59,7 +86,7 @@ const sendData = () => {};
           />
           <q-btn
             style="width: 150px"
-            label="Eviar"
+            :label="access ? 'Login' : 'Registro'"
             type="submit"
             color="primary"
           />
