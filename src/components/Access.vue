@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
