@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from "vue";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../boot/firebase.js";
 import { Notify } from "quasar";
 
@@ -30,6 +34,7 @@ const onReset = () => {
  * Send data to firebase
  */
 const sendData = async () => {
+  // User Register
   if (!access.value) {
     createUserWithEmailAndPassword(
       auth,
@@ -50,7 +55,7 @@ const sendData = async () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-          Notify.create({
+        Notify.create({
           message: "Error en el Registro ",
           color: "red",
           textColor: "white",
@@ -60,6 +65,34 @@ const sendData = async () => {
         // ..
       });
   } else if (access.value) {
+    signInWithEmailAndPassword(
+      auth,
+      objectForm.value.email,
+      objectForm.value.password
+    )
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        Notify.create({
+          message: "Logged in",
+          color: "green",
+          textColor: "white",
+          position: "bottom",
+          timeout: 3000,
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        Notify.create({
+          message: "Usiario Invalido ",
+          color: "red",
+          textColor: "white",
+          position: "bottom",
+          timeout: 3000,
+        });
+        // ..
+      });
   }
 };
 </script>
@@ -78,9 +111,11 @@ const sendData = async () => {
       />
       <q-input
         v-model="objectForm.password"
+        label="Your password *"
         filled
         :type="objectForm.isPwd ? 'password' : 'text'"
         hint="Ingresa una contraseña"
+        :rules="[(val) => !!val || 'Ingrese una contraseña']"
       >
         <template v-slot:append>
           <q-icon
