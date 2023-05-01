@@ -1,6 +1,8 @@
 <script setup>
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../boot/firebase.js";
+import AddText from "components/AddText.vue";
+
 
 
 /**
@@ -40,8 +42,6 @@ onAuthStateChanged(auth, (user) => {
       <router-view />
     </q-page-container>
 
-    <q-footer elevated class="bg-indigo-10 text-white">
-      <q-toolbar> </q-toolbar>
-    </q-footer>
+    <AddText/>
   </q-layout>
 </template>
