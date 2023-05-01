@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../boot/firebase.js";
+import { Notify } from "quasar";
 
 /**
  * access control
@@ -38,15 +39,27 @@ const sendData = async () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // ...
+        Notify.create({
+          message: "Usuario Registrado",
+          color: "green",
+          textColor: "white",
+          position: "bottom",
+          timeout: 3000,
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+          Notify.create({
+          message: "Error en el Registro ",
+          color: "red",
+          textColor: "white",
+          position: "bottom",
+          timeout: 3000,
+        });
         // ..
       });
   } else if (access.value) {
-    
   }
 };
 </script>
