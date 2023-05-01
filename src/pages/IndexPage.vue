@@ -1,10 +1,15 @@
 <script setup>
+import Access from "components/Access.vue";
+import ChatMessage from "components/ChatMessage.vue";
+import { auth } from "../boot/firebase.js";
+
 
 </script>
 
 <template>
-  <q-page>
-
+  <q-page padding>
+    <Access />
+    <ChatMessage/>
   </q-page>
 </template>
 

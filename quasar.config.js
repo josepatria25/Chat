@@ -63,7 +63,14 @@ module.exports = configure(function (/* ctx */) {
 
       // publicPath: '/',
       // analyze: true,
-      // env: {},
+      env: {
+       VITE_apiKey:"AIzaSyDeZ26sDlcZPfZHo5XypX390nW7VkXzL60",
+       VITE_authDomain:"chat-9fea4.firebaseapp.com",
+       VITE_projectId:"chat-9fea4",
+       VITE_storageBucket:"chat-9fea4.appspot.com",
+       VITE_messagingSenderId:"683886747653",
+       VITE_appId:"1:683886747653:web:bce2f7354a16542da47c6c"
+      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
@@ -109,7 +116,11 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Notify',
+        'LocalStorage',
+        'SessionStorage'
+      ]
     },
 
     // animations: 'all', // --- includes all animations
