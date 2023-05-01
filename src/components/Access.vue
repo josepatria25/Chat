@@ -131,7 +131,7 @@ const sendData = async () => {
       </q-input>
 
       <div class="row block q-gutter-md">
-        <div class="row justify-center q-gutter-x-md">
+        <div class="row justify-center q-gutter-md">
           <q-btn
             style="width: 150px"
             label="Reset"
