@@ -1,46 +1,49 @@
 <script setup>
-import { collection, query, onSnapshot } from "firebase/firestore";
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 import { ref } from "vue";
-import { db, auth } from "../boot/firebase"
+import { db, auth } from "../boot/firebase";
 
 /**
- * Observe data in real time 
-*/
-let messages = ref([])
+ * Observe data in real time
+ */
+let messages = ref([]);
 
-const q = query(collection(db, "chats"));
+const getMessages = () => {
+messages.value = [];
+const q = query(collection(db, "chats"), orderBy("time"));
 const unsubscribe = onSnapshot(q, (snapshot) => {
   snapshot.docChanges().forEach((change) => {
     if (change.type === "added") {
-        console.log("New chat: ", change.doc.data());
-        messages.value.push({
-            id: change.doc.id,
-          ...change.doc.data()
-        })
+      messages.value.push({
+        id: change.doc.id,
+        ...change.doc.data(),
+      });
+
     }
     if (change.type === "modified") {
-        console.log("Edit chat: ", change.doc.data());
     }
     if (change.type === "removed") {
-        console.log("Removed city: ", change.doc.data());
     }
   });
 });
-
+}
+getMessages()
 </script>
 
 <template>
   <div class="q-pa-md row justify-center">
-    <div style="width: 100%; max-width: 400px">
+    <div
+      style="width: 100%; max-width: 400px"
+    >
+    <div v-for="message in messages"
+      :key="message.id">
       <q-chat-message
-        name="me"
-        :text="['hey, how are you?']"
-        sent
-      />
-      <q-chat-message
-        name="Jane"
-        :text="['doing fine, how r you?']"
-      />
+        :text="[message.text]"
+        :sent="message.id == auth.currentUser.uid"
+        :name="message.email"
+      >
+      </q-chat-message>
+      </div>
     </div>
   </div>
 </template>
