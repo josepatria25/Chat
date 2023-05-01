@@ -2,7 +2,6 @@
 import Access from "components/Access.vue";
 import ChatMessage from "components/ChatMessage.vue";
 import { auth } from "../boot/firebase.js";
-import ChatMessageVue from "../components/ChatMessage.vue";
 
 
 </script>
@@ -10,6 +9,7 @@ import ChatMessageVue from "../components/ChatMessage.vue";
 <template>
   <q-page padding>
     <Access />
+    <ChatMessage/>
   </q-page>
 </template>
 
