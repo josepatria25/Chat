@@ -6,12 +6,12 @@ import { auth } from "../boot/firebase.js";
  * Log Out
 */
 const logout = () => {
+
   signOut(auth)
     .then(() => {
-      console.log('asdasd');
     })
     .catch((error) => {
-      console.log('qweqwe');
+      console.log(error);
     });
 };
 
@@ -21,7 +21,6 @@ const logout = () => {
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
-    console.log(uid);
   }
 });
 </script>

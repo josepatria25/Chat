@@ -2405,7 +2405,15 @@
     source-map "0.5.6"
     tsconfig "^7.0.0"
 
-"@vueuse/shared@^10.1.0":
+"@vueuse/firebase@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/firebase/-/firebase-10.1.0.tgz#58a58f8e9ab35d603fabe87da5c2e7682926140f"
+  integrity sha512-6N7L3esttTw/X19Ks4tU7OdIf5DzD7i0ct8PBt30OHk6E6ekIbru4430TZXRTIbirznvcGr+GhJ/XZX1ExmbLw==
+  dependencies:
+    "@vueuse/shared" "10.1.0"
+    vue-demi ">=0.14.0"
+
+"@vueuse/shared@10.1.0", "@vueuse/shared@^10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-10.1.0.tgz#1158713a69d33b84c473dbd078c0e8c587e6ab5f"
   integrity sha512-2X52ogu12i9DkKOQ01yeb/BKg9UO87RNnpm5sXkQvyORlbq8ONS5l39MYkjkeVWWjdT0teJru7a2S41dmHmqjQ==
