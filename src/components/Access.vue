@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
+import { auth } from "../boot/firebase.js";
 
 /**
  * access control
@@ -28,24 +28,26 @@ const onReset = () => {
 /**
  * Send data to firebase
  */
-const auth = getAuth();
 const sendData = async () => {
-  // if(!access.value){
-  //   const user = await auth.createUserWithEmailAndPassword(objectForm.value.email, objectForm.value.password)
-  //   console.log(user.user)
-  // }
-  const auth = getAuth();
-createUserWithEmailAndPassword(auth, objectForm.value.email, objectForm.value.password)
-  .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+  if (!access.value) {
+    createUserWithEmailAndPassword(
+      auth,
+      objectForm.value.email,
+      objectForm.value.password
+    )
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  } else if (access.value) {
+    
+  }
 };
 </script>
 
