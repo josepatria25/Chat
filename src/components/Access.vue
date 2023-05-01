@@ -5,7 +5,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../boot/firebase.js";
-import { Notify } from "quasar";
+import { Notify, SessionStorage } from "quasar";
+
 
 /**
  * access control
@@ -43,6 +44,9 @@ const sendData = async () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        SessionStorage.set('token', user.accessToken);
+        SessionStorage.set('email', user.email);
+        SessionStorage.set('id', auth.uid);
         Notify.create({
           message: "Usuario Registrado",
           color: "green",
@@ -70,8 +74,9 @@ const sendData = async () => {
       objectForm.value.password
     )
       .then((userCredential) => {
-        // Signed in
+        //  in
         const user = userCredential.user;
+        console.log(user);
         Notify.create({
           message: "Logged in",
           color: "green",

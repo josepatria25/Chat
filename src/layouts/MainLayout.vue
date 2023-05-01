@@ -2,6 +2,7 @@
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../boot/firebase.js";
 
+
 /**
  * Log Out
 */
@@ -23,6 +24,8 @@ onAuthStateChanged(auth, (user) => {
     const uid = user.uid;
   }
 });
+
+
 </script>
 <template>
   <q-layout view="hHh lpR fFf">
