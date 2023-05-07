@@ -12,6 +12,7 @@ const getMessages = () => {
 messages.value = [];
 const q = query(collection(db, "chats"), orderBy("time"));
 const unsubscribe = onSnapshot(q, (snapshot) => {
+  console.log(q);
   snapshot.docChanges().forEach((change) => {
     if (change.type === "added") {
       messages.value.push({
